@@ -33,16 +33,41 @@ jobs:
         with:
          name: Test logs
          path: logs/
-        
-      - name: Upload Test Reports
+      - name: Upload Screenshots as Artifacts
         if: always()
         uses: actions/upload-artifact@v4.6.0
         with:
-         name: Test Reports
+         name: screenshots
+         path: screenshots/
+
+         
+      - name: Upload HTML Report as Artifact
+        if: always()
+        uses: actions/upload-artifact@v4.6.0
+        with:
+         name: html-report
          path: Automationreport.html
          
       - name: Test Execution Status
+        if: always()
         run: echo "Test Execution Completed"
+
+      - name: Copy Report to gh-pages Folder
+        if: always()
+
+        run: |
+          mkdir -p public/extent-reports
+          cp -R Automationreport.html public/extent-reports/
+          cp -R screenshots/ public/extent-reports/screenshots/
+          ls -l
+
+      - name: Deploy
+        if: always()
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: public/extent-reports/
+          token: ${{ secrets.PAT1234 }}
+          clean: true
 
 
 
