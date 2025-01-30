@@ -44,14 +44,14 @@ public class TestBase {
 		return homepage;
 	}
 
-//	@AfterMethod(description = "Tear Down the browser")
-//	public void tearDown() {
-//
-//		if (isLambdaTest) {
-//			LambdaTestUtility.quitSession(); // quit or close the browser session on LT
-//		} else {
-//			homepage.quit(); //local
-//		}
-//	}
+	@AfterMethod(description = "Tear Down the browser")
+	public void tearDown() {
+
+		if (isLambdaTest) {
+			LambdaTestUtility.quitSession(); // quit or close the browser session on LT
+		} else {
+			homepage.quit(); //local
+		}
+	}
 
 }
