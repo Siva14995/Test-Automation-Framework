@@ -24,7 +24,7 @@ public class LoginTest extends TestBase {
 		assertEquals(homepage.goToLoginPage().doLoginWith(user.getEmailAddress(), user.getPassword()).getUserName(),
 				"Siva Subramanian");
 	}
-/*
+
 	@Test(description = "Verifies with the valid user is able to login into the application", groups = { "e2e",
 			"sanity" }, dataProviderClass = com.ui.dataproviders.LoginDataProvider.class, dataProvider = "LoginCSVDataProvider")
 	public void loginCSVTest(User user) {
@@ -39,5 +39,5 @@ public class LoginTest extends TestBase {
 				"Siva Subramanian1");
 
 	}
-*/
+
 }
