@@ -29,13 +29,13 @@ jobs:
         
       - name: Upload Test logs
         if: always()
-        uses: actions/upload-artifact@v4.6.0
+        uses: actions/upload-artifact@v4.4.3
         with:
          name: Test logs
          path: logs/
       - name: Upload Screenshots as Artifacts
         if: always()
-        uses: actions/upload-artifact@v4.6.0
+        uses: actions/upload-artifact@v4.4.3
         with:
          name: screenshots
          path: screenshots/
@@ -43,7 +43,7 @@ jobs:
          
       - name: Upload HTML Report as Artifact
         if: always()
-        uses: actions/upload-artifact@v4.6.0
+        uses: actions/upload-artifact@v4.4.3
         with:
          name: html-report
          path: Automationreport.html
