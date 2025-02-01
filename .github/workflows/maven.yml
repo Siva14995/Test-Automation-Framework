@@ -1,4 +1,4 @@
-name: Test Automation Workflow
+name: Test Automation WorkFlow
 'on':
   schedule:
     - cron: 00 18 * * *
@@ -20,23 +20,12 @@ jobs:
           distribution: temurin
           cache: maven
       - name: Create necessary directories (important!)
-        run: >
+        run: |
           mkdir -p logs
-
           mkdir -p screenshots
-
-          mkdir -p target/surefire-reports # Or wherever your reports go
-
-          touch Automationreport.html # Create an empty file to avoid errors if
-          it doesn't exist
-      - name: Run Test Automation Framework with Maven
+          mkdir -p Automationreport.html
+      - name: Running Test Automation Framework with Maven
         run: mvn test -X -Dbrowser=chrome -DisLambdaTest=true -DisHeadless=false
-      - name: Archive Test Reports (Surefire)
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: surefire-reports
-          path: target/surefire-reports
       - name: Upload Test logs
         if: always()
         uses: actions/upload-artifact@v4
@@ -62,14 +51,13 @@ jobs:
         if: always()
         run: |
           mkdir -p public/extent-reports
-          cp Automationreport.html public/extent-reports/
-          cp -r screenshots public/extent-reports/
-          #Ensure the screenshots directory is copied recursively
+          cp -R Automationreport.html public/extent-reports/
+          cp -R screenshots/ public/extent-reports/screenshots/
           ls -l public/extent-reports/
       - name: Deploy to GitHub Pages
         if: always()
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: public/extent-reports
+          folder: public/extent-reports/
           token: '${{ secrets.PAT1234 }}'
           clean: true
