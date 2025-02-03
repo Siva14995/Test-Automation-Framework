@@ -1,7 +1,7 @@
 name: Test Automation WorkFlow
 'on':
   schedule:
-    - cron: 00 18 * * *
+    - cron: '00 18 * * *'
   push:
     branches:
       - master
@@ -19,11 +19,6 @@ jobs:
           java-version: '11'
           distribution: temurin
           cache: maven
-      - name: Create necessary directories (important!)
-        run: |
-          mkdir -p logs
-          mkdir -p screenshots
-          mkdir -p Automationreport.html
       - name: Running Test Automation Framework with Maven
         run: mvn test -X -Dbrowser=chrome -DisLambdaTest=true -DisHeadless=false
       - name: Upload Test logs
@@ -31,32 +26,33 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Test logs
-          path: logs/
+          path: ./logs/
       - name: Upload Screenshots as Artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: screenshots
-          path: screenshots/
+          path: ./screenshots/
       - name: Upload HTML Report as Artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: html-report
-          path: Automationreport.html
+          path: ./Automationreport.html
       - name: Test Execution Status
         if: always()
         run: echo "Test Execution Completed"
+        
       - name: Copy Report to gh-pages Folder
         if: always()
         run: |
           mkdir -p public/extent-reports
           cp -R Automationreport.html public/extent-reports/
           cp -R screenshots/ public/extent-reports/screenshots/
-          ls -l public/extent-reports/
+          ls -l 
       - name: Deploy to GitHub Pages
         if: always()
-        uses: JamesIves/github-pages-deploy-action@v4
+        uses: actions/deploy-pages@v4.0.5
         with:
           folder: public/extent-reports/
           token: '${{ secrets.PAT1234 }}'
