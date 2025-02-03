@@ -26,19 +26,19 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Test logs
-          path: ./logs/
+          path: logs/
       - name: Upload Screenshots as Artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: screenshots
-          path: ./screenshots/
+          path: screenshots/
       - name: Upload HTML Report as Artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: html-report
-          path: ./Automationreport.html
+          path: Automationreport.html
       - name: Test Execution Status
         if: always()
         run: echo "Test Execution Completed"
@@ -52,7 +52,7 @@ jobs:
           ls -l 
       - name: Deploy to GitHub Pages
         if: always()
-        uses: actions/deploy-pages@v4.0.5
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: public/extent-reports/
           token: '${{ secrets.PAT1234 }}'
